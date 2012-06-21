@@ -69,7 +69,12 @@ abstract class AbstractBlameableListener implements EventSubscriber
             }
         }
 
-        $user = $this->container->get('security.context')->getToken()->getUser();
+        $token = $this->container->get('security.context')->getToken();
+        if (!$token) {
+            return;
+        }
+
+        $user = $token->getUser();
         if($user instanceof \Symfony\Component\Security\Core\User\UserInterface) {
             if(method_exists($user, 'getId')) {
                 $userId = $user->getId();
