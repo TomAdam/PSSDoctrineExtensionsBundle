@@ -93,7 +93,7 @@ abstract class AbstractBlameableListener implements EventSubscriber
 
             // Test to store the object or the id/username
             if ($this->container->getParameter('pss.blameable.store_object')) {
-                $entity->$creatorSetter($user ? $user : null);
+                $entity->$creatorSetter(is_object($user) ? $user : null);
             } else {
                 $entity->$creatorSetter($userId);
             }
@@ -103,7 +103,7 @@ abstract class AbstractBlameableListener implements EventSubscriber
 
         // Test to store the object or the id/username
         if ($this->container->getParameter('pss.blameable.store_object')) {
-            $entity->$updaterSetter($user ? $user : null);
+            $entity->$updaterSetter(is_object($user) ? $user : null);
         } else {
             $entity->$updaterSetter($userId);
         }
