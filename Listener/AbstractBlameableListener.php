@@ -61,7 +61,7 @@ abstract class AbstractBlameableListener implements EventSubscriber
      */
     protected function updateEntity($entity, $blameable, $create = false)
     {
-        if($blameable->getUserClass() === NULL) {
+        if($blameable->getUserClass() === null) {
             if ($this->container->hasParameter('pss.blameable.user_class')) {
                 $blameable->setUserClass($this->container->getParameter('pss.blameable.user_class'));
             } else {
@@ -82,7 +82,7 @@ abstract class AbstractBlameableListener implements EventSubscriber
                 $userId = $user->getUsername();
             }
         } else {
-            $userId = NULL;
+            $userId = null;
         }
 
         if ($create) {
@@ -93,7 +93,7 @@ abstract class AbstractBlameableListener implements EventSubscriber
 
             // Test to store the object or the id/username
             if ($this->container->getParameter('pss.blameable.store_object')) {
-                $entity->$creatorSetter(is_object($user) ? $user : null);
+                $entity->$creatorSetter($userId ? $user : null);
             } else {
                 $entity->$creatorSetter($userId);
             }
@@ -103,7 +103,7 @@ abstract class AbstractBlameableListener implements EventSubscriber
 
         // Test to store the object or the id/username
         if ($this->container->getParameter('pss.blameable.store_object')) {
-            $entity->$updaterSetter(is_object($user) ? $user : null);
+            $entity->$updaterSetter($userId ? $user : null);
         } else {
             $entity->$updaterSetter($userId);
         }
